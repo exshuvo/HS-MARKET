@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HS MARKET — Shop everything, from everyone</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#16213E;
+    --navy-deep:#0D1526;
+    --amber:#F2A93B;
+    --amber-deep:#DE8F1E;
+    --green:#2E7D5B;
+    --red:#D64545;
+    --bg:#F7F7F5;
+    --card:#FFFFFF;
+    --ink:#1C1C1E;
+    --ink-soft:#5B5F66;
+    --line:#E7E5E0;
+    --radius:10px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Inter',sans-serif;
+    color:var(--ink);
+    background:var(--bg);
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.brand,.hero-head{font-family:'Sora',sans-serif;}
+  a{text-decoration:none;color:inherit;}
+  button{font-family:inherit;cursor:pointer;}
+  img{max-width:100%;display:block;}
+  .container{max-width:1280px;margin:0 auto;padding:0 20px;}
+
+  /* Utility bar */
+  .utility-bar{background:var(--navy-deep);color:#C9CEDB;font-size:13px;padding:6px 0;}
+  .utility-bar .container{display:flex;justify-content:space-between;align-items:center;}
+  .utility-bar a{color:#C9CEDB;margin-left:16px;}
+  .utility-bar a:hover{color:#fff;}
+
+  /* Header */
+  header.main{background:var(--navy);color:#fff;padding:16px 0;}
+  .header-row{display:flex;align-items:center;gap:24px;}
+  .brand{font-size:24px;font-weight:800;color:#fff;letter-spacing:-0.5px;white-space:nowrap;}
+  .brand span{color:var(--amber);}
+  .search-wrap{flex:1;display:flex;max-width:680px;}
+  .search-wrap select{
+    background:#0F1A32;color:#C9CEDB;border:1px solid #2A3A5C;border-right:none;
+    border-radius:8px 0 0 8px;padding:0 10px;font-size:13px;
+  }
+  .search-wrap input{
+    flex:1;border:none;padding:12px 14px;font-size:15px;outline:none;
+  }
+  .search-wrap button{
+    background:var(--amber);border:none;padding:0 20px;border-radius:0 8px 8px 0;
+    font-weight:700;color:var(--navy-deep);font-size:15px;
+  }
+  .search-wrap button:hover{background:var(--amber-deep);}
+  .header-actions{display:flex;align-items:center;gap:22px;font-size:14px;}
+  .header-actions .item{display:flex;flex-direction:column;line-height:1.2;cursor:pointer;}
+  .header-actions .item small{color:#9BA4BC;font-size:11px;}
+  .header-actions .item strong{font-weight:600;}
+  .cart-btn{position:relative;display:flex;align-items:center;gap:8px;background:none;border:none;color:#fff;font-size:14px;}
+  .cart-count{
+    position:absolute;top:-8px;right:-10px;background:var(--red);color:#fff;
+    border-radius:50%;width:18px;height:18px;font-size:11px;display:flex;align-items:center;justify-content:center;font-weight:700;
+  }
+
+  /* Category nav */
+  nav.catnav{background:#1D2C4F;border-top:1px solid #2A3A5C;}
+  nav.catnav .container{display:flex;gap:26px;overflow-x:auto;padding:10px 20px;}
+  nav.catnav a{color:#D3D8E4;font-size:13.5px;white-space:nowrap;font-weight:500;}
+  nav.catnav a:hover{color:var(--amber);}
+
+  /* Hero */
+  .hero{background:linear-gradient(120deg,#16213E 0%,#233657 60%,#16213E 100%);color:#fff;padding:46px 0;}
+  .hero .container{display:grid;grid-template-columns:1.1fr 0.9fr;gap:40px;align-items:center;}
+  .hero-head{font-size:40px;line-height:1.15;font-weight:700;margin:0 0 14px;}
+  .hero p.sub{color:#B9C0D4;font-size:16px;max-width:440px;margin:0 0 22px;}
+  .hero-cta{display:flex;gap:12px;}
+  .btn-primary{background:var(--amber);color:var(--navy-deep);padding:13px 26px;border-radius:8px;font-weight:700;font-size:15px;border:none;}
+  .btn-primary:hover{background:var(--amber-deep);}
+  .btn-ghost{border:1px solid #4A5A7D;color:#fff;padding:13px 26px;border-radius:8px;font-weight:600;font-size:15px;background:none;}
+  .btn-ghost:hover{border-color:#fff;}
+  .hero-visual{
+    background:#0F1A32;border:1px solid #2A3A5C;border-radius:16px;padding:22px;
+    display:grid;grid-template-columns:1fr 1fr;gap:12px;
+  }
+  .hero-visual img{border-radius:10px;height:100px;object-fit:cover;width:100%;}
+  .hero-visual .tag{grid-column:1/3;font-size:13px;color:#B9C0D4;display:flex;justify-content:space-between;}
+  .hero-visual .tag b{color:var(--amber);}
+
+  /* Flash sale */
+  .flash{background:var(--card);padding:28px 0;border-bottom:1px solid var(--line);}
+  .flash-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+  .flash-head h2{font-size:22px;margin:0;display:flex;align-items:center;gap:10px;}
+  .flash-head h2 em{
+    font-style:normal;background:var(--red);color:#fff;font-size:11px;font-weight:700;
+    padding:3px 8px;border-radius:5px;
+  }
+  .timer{display:flex;gap:6px;align-items:center;font-size:13px;color:var(--ink-soft);}
+  .timer .box{background:var(--navy);color:#fff;font-weight:700;padding:5px 8px;border-radius:6px;min-width:34px;text-align:center;font-family:'Sora',sans-serif;}
+  .see-all{color:var(--navy);font-weight:600;font-size:14px;}
+  .see-all:hover{color:var(--amber-deep);}
+
+  /* Product grid */
+  .grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+    display:flex;flex-direction:column;position:relative;transition:box-shadow .15s ease, transform .15s ease;
+  }
+  .card:hover{box-shadow:0 8px 22px rgba(22,33,62,0.10);transform:translateY(-2px);}
+  .card .thumb{position:relative;aspect-ratio:1/1;overflow:hidden;background:#EFEEEA;}
+  .card .thumb img{width:100%;height:100%;object-fit:cover;}
+  .badge-discount{position:absolute;top:8px;left:8px;background:var(--red);color:#fff;font-size:11px;font-weight:700;padding:3px 7px;border-radius:5px;}
+  .card .body{padding:12px 12px 14px;display:flex;flex-direction:column;gap:6px;flex:1;}
+  .card .seller{font-size:11px;color:var(--ink-soft);}
+  .card .name{font-size:13.5px;line-height:1.35;font-weight:500;min-height:36px;}
+  .card .price-row{display:flex;align-items:baseline;gap:8px;margin-top:auto;}
+  .card .price{font-size:16px;font-weight:700;color:var(--ink);}
+  .card .old-price{font-size:12.5px;color:var(--ink-soft);text-decoration:line-through;}
+  .card .rating{font-size:12px;color:var(--amber-deep);}
+  .card .rating span{color:var(--ink-soft);}
+  .add-btn{
+    margin-top:8px;background:var(--navy);color:#fff;border:none;padding:8px;border-radius:7px;
+    font-size:13px;font-weight:600;width:100%;
+  }
+  .add-btn:hover{background:var(--amber-deep);color:var(--navy-deep);}
+
+  section.shelf{padding:34px 0;}
+  .shelf-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:18px;}
+  .shelf-head h2{font-size:21px;margin:0;}
+  .shelf-head p{color:var(--ink-soft);font-size:13.5px;margin:4px 0 0;}
+
+  /* Category tiles */
+  .cat-tiles{display:grid;grid-template-columns:repeat(8,1fr);gap:14px;padding:26px 0;}
+  .cat-tile{display:flex;flex-direction:column;align-items:center;gap:8px;font-size:12.5px;font-weight:500;color:var(--ink);}
+  .cat-tile .ic{
+    width:64px;height:64px;border-radius:50%;background:#EFEEEA;display:flex;align-items:center;justify-content:center;
+    font-size:26px;border:1px solid var(--line);transition:border-color .15s ease;
+  }
+  .cat-tile:hover .ic{border-color:var(--amber-deep);}
+
+  /* Seller strip */
+  .sellers{background:#1D2C4F;color:#fff;padding:36px 0;}
+  .sellers .container{display:flex;justify-content:space-between;align-items:center;gap:30px;flex-wrap:wrap;}
+  .sellers h3{font-size:22px;margin:0 0 6px;}
+  .sellers p{color:#B9C0D4;font-size:14px;margin:0;max-width:420px;}
+  .stat-row{display:flex;gap:34px;}
+  .stat{text-align:center;}
+  .stat b{font-family:'Sora',sans-serif;font-size:26px;display:block;color:var(--amber);}
+  .stat span{font-size:12px;color:#B9C0D4;}
+
+  footer{background:var(--navy-deep);color:#9BA4BC;padding:40px 0 20px;font-size:13.5px;}
+  .foot-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;margin-bottom:28px;}
+  .foot-grid h4{color:#fff;font-size:14px;margin:0 0 12px;}
+  .foot-grid a{display:block;color:#9BA4BC;margin-bottom:8px;}
+  .foot-grid a:hover{color:var(--amber);}
+  .foot-bottom{border-top:1px solid #24304C;padding-top:16px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+
+  /* Cart drawer */
+  .overlay{position:fixed;inset:0;background:rgba(13,21,38,0.5);opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:40;}
+  .overlay.open{opacity:1;pointer-events:auto;}
+  .drawer{
+    position:fixed;top:0;right:-420px;width:400px;max-width:92vw;height:100%;background:#fff;z-index:50;
+    box-shadow:-10px 0 30px rgba(0,0,0,0.15);transition:right .25s ease;display:flex;flex-direction:column;
+  }
+  .drawer.open{right:0;}
+  .drawer-head{padding:18px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;}
+  .drawer-head h3{margin:0;font-size:17px;}
+  .drawer-head button{background:none;border:none;font-size:20px;color:var(--ink-soft);}
+  .drawer-body{flex:1;overflow-y:auto;padding:14px 20px;}
+  .cart-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);}
+  .cart-item img{width:60px;height:60px;object-fit:cover;border-radius:8px;background:#EFEEEA;}
+  .cart-item .info{flex:1;}
+  .cart-item .info .name{font-size:13px;font-weight:500;margin-bottom:4px;}
+  .cart-item .info .seller{font-size:11px;color:var(--ink-soft);margin-bottom:6px;}
+  .qty-row{display:flex;align-items:center;gap:8px;}
+  .qty-row button{width:22px;height:22px;border-radius:5px;border:1px solid var(--line);background:#fff;font-size:14px;line-height:1;}
+  .qty-row span{font-size:13px;min-width:16px;text-align:center;}
+  .remove-btn{font-size:11px;color:var(--red);background:none;border:none;margin-left:auto;}
+  .item-price{font-weight:700;font-size:14px;white-space:nowrap;}
+  .drawer-foot{padding:16px 20px;border-top:1px solid var(--line);}
+  .total-row{display:flex;justify-content:space-between;font-size:15px;font-weight:700;margin-bottom:14px;}
+  .checkout-btn{width:100%;background:var(--amber);border:none;padding:13px;border-radius:8px;font-weight:700;color:var(--navy-deep);font-size:15px;}
+  .checkout-btn:hover{background:var(--amber-deep);}
+  .empty-cart{text-align:center;color:var(--ink-soft);padding:60px 20px;font-size:14px;}
+
+  @media (max-width:1100px){
+    .grid{grid-template-columns:repeat(3,1fr);}
+    .cat-tiles{grid-template-columns:repeat(4,1fr);}
+    .hero .container{grid-template-columns:1fr;}
+    .hero-visual{display:none;}
+    .foot-grid{grid-template-columns:repeat(2,1fr);}
+  }
+  @media (max-width:640px){
+    .grid{grid-template-columns:repeat(2,1fr);}
+    .header-row{flex-wrap:wrap;}
+    .search-wrap{order:3;width:100%;max-width:none;}
+    .header-actions{gap:14px;}
+    .utility-bar .container{font-size:11px;}
+    .stat-row{gap:18px;}
+    .foot-grid{grid-template-columns:1fr 1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="utility-bar">
+  <div class="container">
+    <span>Deliver across the country — free pickup at partner points</span>
+    <div>
+      <a href="#">Track Order</a>
+      <a href="#sellers">Sell on HS MARKET</a>
+      <a href="#">Help Center</a>
+    </div>
+  </div>
+</div>
+
+<header class="main">
+  <div class="container header-row">
+    <a class="brand" href="#">HS<span>MARKET</span></a>
+    <div class="search-wrap">
+      <select>
+        <option>All Categories</option>
+        <option>Electronics</option>
+        <option>Fashion</option>
+        <option>Home & Living</option>
+        <option>Beauty</option>
+        <option>Groceries</option>
+      </select>
+      <input id="searchInput" type="text" placeholder="Search products, brands, and sellers...">
+      <button onclick="runSearch()">Search</button>
+    </div>
+    <div class="header-actions">
+      <div class="item"><small>Hello,</small><strong>Sign in</strong></div>
+      <div class="item"><small>Your</small><strong>Orders</strong></div>
+      <button class="cart-btn" onclick="toggleCart(true)">
+        🛒 <span>Cart</span>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+  <nav class="catnav">
+    <div class="container">
+      <a href="#">Electronics</a>
+      <a href="#">Fashion</a>
+      <a href="#">Home & Living</a>
+      <a href="#">Beauty & Health</a>
+      <a href="#">Groceries</a>
+      <a href="#">Sports & Outdoors</a>
+      <a href="#">Toys & Kids</a>
+      <a href="#">Automotive</a>
+      <a href="#" style="color:var(--amber);">🔥 Flash Sale</a>
+    </div>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div>
+      <h1 class="hero-head">Everything you need,<br>from sellers you trust.</h1>
+      <p class="sub">Millions of products across electronics, fashion, home, and more — with new vendors joining HS MARKET every day.</p>
+      <div class="hero-cta">
+        <button class="btn-primary" onclick="document.getElementById('flash').scrollIntoView({behavior:'smooth'})">Shop Flash Sale</button>
+        <a class="btn-ghost" href="#sellers">Become a Seller</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <img src="https://picsum.photos/seed/hsmarket1/300/200" alt="">
+      <img src="https://picsum.photos/seed/hsmarket2/300/200" alt="">
+      <img src="https://picsum.photos/seed/hsmarket3/300/200" alt="">
+      <img src="https://picsum.photos/seed/hsmarket4/300/200" alt="">
+      <div class="tag"><span>Today's top deal</span><b>Up to 65% off</b></div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="cat-tiles" id="catTiles"></div>
+</div>
+
+<section class="flash" id="flash">
+  <div class="container">
+    <div class="flash-head">
+      <h2>Flash Sale <em>ENDS SOON</em></h2>
+      <div class="timer">
+        Ends in
+        <span class="box" id="th">05</span>:<span class="box" id="tm">00</span>:<span class="box" id="ts">00</span>
+      </div>
+      <a class="see-all" href="#">See all deals →</a>
+    </div>
+    <div class="grid" id="flashGrid"></div>
+  </div>
+</section>
+
+<section class="shelf">
+  <div class="container">
+    <div class="shelf-head">
+      <div>
+        <h2>Trending right now</h2>
+        <p>Popular picks from top-rated sellers this week</p>
+      </div>
+      <a class="see-all" href="#">See all →</a>
+    </div>
+    <div class="grid" id="trendGrid"></div>
+  </div>
+</section>
+
+<section class="shelf" style="background:#F1EFEA;">
+  <div class="container">
+    <div class="shelf-head">
+      <div>
+        <h2>Home & Living essentials</h2>
+        <p>Furnish your space for less</p>
+      </div>
+      <a class="see-all" href="#">See all →</a>
+    </div>
+    <div class="grid" id="homeGrid"></div>
+  </div>
+</section>
+
+<section class="sellers" id="sellers">
+  <div class="container">
+    <div>
+      <h3>Grow your business on HS MARKET</h3>
+      <p>Join thousands of vendors reaching customers nationwide with zero setup cost and next-day payouts.</p>
+      <button class="btn-primary" style="margin-top:16px;">Start Selling</button>
+    </div>
+    <div class="stat-row">
+      <div class="stat"><b>40K+</b><span>Active sellers</span></div>
+      <div class="stat"><b>2.1M</b><span>Products listed</span></div>
+      <div class="stat"><b>98%</b><span>On-time delivery</span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <h4>Customer Care</h4>
+        <a href="#">Help Center</a>
+        <a href="#">How to Order</a>
+        <a href="#">Returns & Refunds</a>
+        <a href="#">Track My Order</a>
+      </div>
+      <div>
+        <h4>About HS MARKET</h4>
+        <a href="#">About Us</a>
+        <a href="#">Careers</a>
+        <a href="#">Press</a>
+        <a href="#">Policies</a>
+      </div>
+      <div>
+        <h4>Sell With Us</h4>
+        <a href="#">Become a Seller</a>
+        <a href="#">Seller Center</a>
+        <a href="#">Advertise</a>
+      </div>
+      <div>
+        <h4>Payment Methods</h4>
+        <a href="#">Cash on Delivery</a>
+        <a href="#">Cards & Wallets</a>
+        <a href="#">Bank Transfer</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 HS MARKET. All rights reserved.</span>
+      <span>Built for buyers and sellers, everywhere.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="overlay" id="overlay" onclick="toggleCart(false)"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-head">
+    <h3>Your Cart</h3>
+    <button onclick="toggleCart(false)">✕</button>
+  </div>
+  <div class="drawer-body" id="drawerBody"></div>
+  <div class="drawer-foot">
+    <div class="total-row"><span>Total</span><span id="cartTotal">$0.00</span></div>
+    <button class="checkout-btn">Proceed to Checkout</button>
+  </div>
+</div>
+
+<script>
+  const categories = [
+    {ic:"📱",name:"Electronics"},{ic:"👗",name:"Fashion"},{ic:"🛋️",name:"Home & Living"},
+    {ic:"💄",name:"Beauty"},{ic:"🛒",name:"Groceries"},{ic:"⚽",name:"Sports"},
+    {ic:"🧸",name:"Toys"},{ic:"🚗",name:"Automotive"}
+  ];
+
+  function makeProducts(seedPrefix, count, opts={}){
+    const names = [
+      "Wireless Earbuds Pro","Smart LED Desk Lamp","Men's Casual Sneakers","Ceramic Coffee Mug Set",
+      "Portable Bluetooth Speaker","Women's Summer Dress","Non-stick Cookware Set","Fitness Tracker Band",
+      "Cotton Bedsheet Set","Stainless Steel Water Bottle","Kids Building Blocks Set","Car Phone Mount",
+      "Wall Clock Modern Design","Leather Wallet Slim","USB-C Fast Charger","Office Chair Ergonomic",
+      "Skincare Gift Set","Backpack Water Resistant","LED Strip Lights","Electric Kettle 1.7L"
+    ];
+    const sellers = ["Nova Traders","UrbanGoods Co.","BrightHome Store","TechNest","PrimeCraft","EverydayMart"];
+    let arr=[];
+    for(let i=0;i<count;i++){
+      const price = (Math.random()*80+10);
+      const hasDiscount = opts.discount ? Math.random()>0.2 : Math.random()>0.7;
+      const oldPrice = hasDiscount ? price*(1+Math.random()*0.6+0.15) : null;
+      arr.push({
+        id: seedPrefix+"-"+i,
+        name: names[Math.floor(Math.random()*names.length)],
+        seller: sellers[Math.floor(Math.random()*sellers.length)],
+        price: price,
+        oldPrice: oldPrice,
+        rating: (Math.random()*1.3+3.6).toFixed(1),
+        reviews: Math.floor(Math.random()*3000+20),
+        img: `https://picsum.photos/seed/${seedPrefix}${i}/400/400`
+      });
+    }
+    return arr;
+  }
+
+  const flashProducts = makeProducts("flash", 5, {discount:true});
+  const trendProducts = makeProducts("trend", 5);
+  const homeProducts = makeProducts("home", 5);
+
+  function renderCategoryTiles(){
+    const wrap = document.getElementById('catTiles');
+    wrap.innerHTML = categories.map(c=>`
+      <a class="cat-tile" href="#">
+        <div class="ic">${c.ic}</div>
+        <span>${c.name}</span>
+      </a>
+    `).join('');
+  }
+
+  function productCard(p){
+    const discountPct = p.oldPrice ? Math.round(100-(p.price/p.oldPrice*100)) : null;
+    return `
+      <div class="card">
+        <div class="thumb">
+          ${discountPct ? `<span class="badge-discount">-${discountPct}%</span>` : ""}
+          <img src="${p.img}" alt="${p.name}" loading="lazy">
+        </div>
+        <div class="body">
+          <div class="seller">Sold by ${p.seller}</div>
+          <div class="name">${p.name}</div>
+          <div class="rating">★ ${p.rating} <span>(${p.reviews})</span></div>
+          <div class="price-row">
+            <span class="price">$${p.price.toFixed(2)}</span>
+            ${p.oldPrice ? `<span class="old-price">$${p.oldPrice.toFixed(2)}</span>` : ""}
+          </div>
+          <button class="add-btn" onclick="addToCart('${p.id}')">Add to Cart</button>
+        </div>
+      </div>
+    `;
+  }
+
+  const allProducts = {};
+  [...flashProducts, ...trendProducts, ...homeProducts].forEach(p=> allProducts[p.id]=p);
+
+  function renderGrid(elId, products){
+    document.getElementById(elId).innerHTML = products.map(productCard).join('');
+  }
+
+  renderCategoryTiles();
+  renderGrid('flashGrid', flashProducts);
+  renderGrid('trendGrid', trendProducts);
+  renderGrid('homeGrid', homeProducts);
+
+  // Cart state (in-memory only, per session)
+  let cart = {}; // id -> qty
+
+  function addToCart(id){
+    cart[id] = (cart[id]||0)+1;
+    renderCart();
+    toggleCart(true);
+  }
+  function changeQty(id, delta){
+    if(!cart[id]) return;
+    cart[id] += delta;
+    if(cart[id]<=0) delete cart[id];
+    renderCart();
+  }
+  function removeItem(id){
+    delete cart[id];
+    renderCart();
+  }
+  function renderCart(){
+    const body = document.getElementById('drawerBody');
+    const ids = Object.keys(cart);
+    let total = 0;
+    let count = 0;
+    ids.forEach(id=> { count += cart[id]; });
+    document.getElementById('cartCount').textContent = count;
+
+    if(ids.length===0){
+      body.innerHTML = `<div class="empty-cart">Your cart is empty.<br>Start adding items you love.</div>`;
+    } else {
+      body.innerHTML = ids.map(id=>{
+        const p = allProducts[id];
+        const qty = cart[id];
+        const lineTotal = p.price*qty;
+        total += lineTotal;
+        return `
+          <div class="cart-item">
+            <img src="${p.img}" alt="${p.name}">
+            <div class="info">
+              <div class="name">${p.name}</div>
+              <div class="seller">${p.seller}</div>
+              <div class="qty-row">
+                <button onclick="changeQty('${id}',-1)">−</button>
+                <span>${qty}</span>
+                <button onclick="changeQty('${id}',1)">+</button>
+                <button class="remove-btn" onclick="removeItem('${id}')">Remove</button>
+              </div>
+            </div>
+            <div class="item-price">$${lineTotal.toFixed(2)}</div>
+          </div>
+        `;
+      }).join('');
+    }
+    document.getElementById('cartTotal').textContent = '$'+total.toFixed(2);
+  }
+
+  function toggleCart(open){
+    document.getElementById('drawer').classList.toggle('open', open);
+    document.getElementById('overlay').classList.toggle('open', open);
+  }
+
+  function runSearch(){
+    const q = document.getElementById('searchInput').value.trim();
+    if(q.length){
+      alert('Searching for: "'+q+'"\\n\\nThis demo storefront filters products from a static catalog — connect a real product database to make search fully functional.');
+    }
+  }
+
+  // Flash sale countdown
+  let secondsLeft = 5*3600;
+  function tick(){
+    if(secondsLeft<=0){ secondsLeft = 5*3600; }
+    secondsLeft--;
+    const h = Math.floor(secondsLeft/3600);
+    const m = Math.floor((secondsLeft%3600)/60);
+    const s = secondsLeft%60;
+    document.getElementById('th').textContent = String(h).padStart(2,'0');
+    document.getElementById('tm').textContent = String(m).padStart(2,'0');
+    document.getElementById('ts').textContent = String(s).padStart(2,'0');
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  renderCart();
+</script>
+</body>
+</html>
